@@ -27,8 +27,6 @@
             position: absolute;
             width: calc(50px + 10vw);
             height: calc(50px + 10vw);
-            left: 0;
-            top: 0;
         }
         #playButton {
             font-size: 1em;
@@ -68,7 +66,19 @@
             image.style.left = `${x + directionX * speed}px`;
             image.style.top = `${y + directionY * speed}px`;
 
-            requestAnimationFrame(() => moveImage(image, directionX, directionY));
+            return { directionX, directionY };
+        }
+
+        function checkCollision(image1, image2) {
+            const rect1 = image1.getBoundingClientRect();
+            const rect2 = image2.getBoundingClientRect();
+
+            return !(
+                rect1.top > rect2.bottom ||
+                rect1.bottom < rect2.top ||
+                rect1.left > rect2.right ||
+                rect1.right < rect2.left
+            );
         }
 
         window.onload = function() {
@@ -82,8 +92,27 @@
                 return;
             }
 
-            moveImage(image1, directionX1, directionY1);
-            moveImage(image2, directionX2, directionY2);
+            // Set initial positions
+            image1.style.left = '10px';
+            image1.style.top = '10px';
+            image2.style.left = '200px';
+            image2.style.top = '200px';
+
+            function animate() {
+                ({ directionX: directionX1, directionY: directionY1 } = moveImage(image1, directionX1, directionY1));
+                ({ directionX: directionX2, directionY: directionY2 } = moveImage(image2, directionX2, directionY2));
+
+                if (checkCollision(image1, image2)) {
+                    directionX1 *= -1;
+                    directionY1 *= -1;
+                    directionX2 *= -1;
+                    directionY2 *= -1;
+                }
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
 
             const audio = document.getElementById('backgroundAudio');
             const playButton = document.getElementById('playButton');
