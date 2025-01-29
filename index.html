@@ -57,30 +57,12 @@
     <img src="image.png" class="moving-image" id="image3">
     <img src="image0.jpeg" class="moving-image" id="image4">
     <script>
-        function moveImage(image, directionX, directionY) {
-            let x = parseFloat(image.style.left) || 0;
-            let y = parseFloat(image.style.top) || 0;
-            let speed = Math.max(1, window.innerWidth / 100);
-
-            if (x + image.width > window.innerWidth || x < 0) directionX *= -1;
-            if (y + image.height > window.innerHeight || y < 0) directionY *= -1;
-
-            image.style.left = `${x + directionX * speed}px`;
-            image.style.top = `${y + directionY * speed}px`;
-
-            return { directionX, directionY };
-        }
-
-        function checkCollision(image1, image2) {
-            const rect1 = image1.getBoundingClientRect();
-            const rect2 = image2.getBoundingClientRect();
-
-            return !(
-                rect1.top > rect2.bottom ||
-                rect1.bottom < rect2.top ||
-                rect1.left > rect2.right ||
-                rect1.right < rect2.left
-            );
+        function moveImage(image, angle, radius, centerX, centerY) {
+            let x = centerX + radius * Math.cos(angle);
+            let y = centerY + radius * Math.sin(angle);
+            image.style.left = `${x}px`;
+            image.style.top = `${y}px`;
+            return angle + 0.01; // Update angle for next frame
         }
 
         window.onload = function() {
@@ -91,33 +73,15 @@
                 document.getElementById('image4')
             ];
 
-            let directions = images.map(() => ({ directionX: (Math.random() < 0.5 ? -1 : 1), directionY: (Math.random() < 0.5 ? -1 : 1) }));
-
-            images.forEach(image => {
-                if (image) {
-                    image.style.left = `${Math.random() * (window.innerWidth - image.width)}px`;
-                    image.style.top = `${Math.random() * (window.innerHeight - image.height)}px`;
-                } else {
-                    console.error("One or more images not found!");
-                }
-            });
+            let angles = images.map(() => Math.random() * Math.PI * 2);
+            const radius = Math.min(window.innerWidth, window.innerHeight) / 4;
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
 
             function animate() {
                 images.forEach((image, index) => {
-                    let { directionX, directionY } = directions[index];
-                    ({ directionX, directionY } = moveImage(image, directionX, directionY));
-                    directions[index] = { directionX, directionY };
-
-                    images.forEach((otherImage, otherIndex) => {
-                        if (index !== otherIndex && checkCollision(image, otherImage)) {
-                            directions[index].directionX *= -1;
-                            directions[index].directionY *= -1;
-                            directions[otherIndex].directionX *= -1;
-                            directions[otherIndex].directionY *= -1;
-                        }
-                    });
+                    angles[index] = moveImage(image, angles[index], radius, centerX, centerY);
                 });
-
                 requestAnimationFrame(animate);
             }
 
