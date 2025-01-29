@@ -20,53 +20,52 @@
             font-size: calc(20px + 6vw);
             font-family: 'Impact', sans-serif;
             color: black;
-            z-index: 3;
+            z-index: 3; /* Ensure text is on top */
             text-align: center;
-            margin-bottom: 20px; 
+            margin-bottom: 20px;
         }
         .dancing-dad {
             position: absolute;
             width: calc(50px + 10vw);
-            height: calc(150px + 10vw);
-            animation: dance 2s ease-in-out infinite;
-            z-index: 1; /* Below text but above button */
+            height: auto;
+            z-index: 1; /* Below text and button */
         }
         .stick-figure {
             width: 100%;
             height: 100%;
             position: relative;
+            animation: dance 2s ease-in-out infinite;
         }
         .head, .body, .arms, .legs {
             position: absolute;
             background-color: black;
         }
         .head {
-            width: 20%; height: 20%; 
-            border-radius: 50%; 
-            top: 0; left: 40%;
+            width: 30%; height: 30%;
+            border-radius: 50%;
+            top: 0; left: 35%;
         }
         .body {
-            width: 2px; height: 40%; 
-            top: 20%; left: 50%;
+            width: 4px; height: 50%;
+            top: 30%; left: 50%;
+            transform: translateX(-50%);
         }
         .arms, .legs {
-            width: 2px; height: 30%;
+            width: 4px; height: 40%;
         }
         .arms {
-            top: 30%; left: 40%;
+            top: 40%; left: 20%;
             transform-origin: right;
         }
         .legs {
-            top: 60%; left: 40%;
+            top: 80%; left: 20%;
             transform-origin: top;
         }
         .dancing-image {
-            position: absolute;
             width: 100%;
-            height: 20%;
-            top: 20%;
+            position: absolute;
+            top: 20%; /* Adjust based on stick figure size */
             left: 0;
-            z-index: 2;
         }
         @keyframes dance {
             0%, 100% {
@@ -95,7 +94,6 @@
             }
             .dancing-dad {
                 width: calc(30px + 15vw);
-                height: calc(90px + 15vw);
             }
         }
     </style>
@@ -107,27 +105,28 @@
         <source src="Suzanne Vega, DNA - Tom's Diner.mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
-    
+
     <!-- Dancing Dads -->
-    <div class="dancing-dad" style="left: 10%; animation-delay: 0s;">
+    <div class="dancing-dad" style="top: calc(50% - 100px); left: 10%;">
         <div class="stick-figure">
             <div class="head"></div>
             <div class="body"></div>
             <div class="arms"></div>
             <div class="legs"></div>
-            <img src="IMG_6908.jpg" class="dancing-image">
+            <img src="IMG_6908.jpg" class="dancing-image" style="animation-delay: 0s;">
         </div>
     </div>
-    <div class="dancing-dad" style="left: 30%; animation-delay: 1s;">
+    <!-- Repeat for other images, adjusting position as needed -->
+    <div class="dancing-dad" style="top: calc(50% - 100px); left: 30%;">
         <div class="stick-figure">
             <div class="head"></div>
             <div class="body"></div>
             <div class="arms"></div>
             <div class="legs"></div>
-            <img src="image1.jpeg" class="dancing-image">
+            <img src="image1.jpeg" class="dancing-image" style="animation-delay: 1.67s;">
         </div>
     </div>
-    <!-- Add more dancing dads with different images here -->
+    <!-- ... Continue for other images -->
 
     <script>
         window.onload = function() {
