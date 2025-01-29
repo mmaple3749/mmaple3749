@@ -14,6 +14,7 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
+            position: relative;
         }
         h1 {
             font-size: calc(20px + 6vw);
@@ -74,13 +75,13 @@
             ];
 
             let angles = images.map(() => Math.random() * Math.PI * 2);
-            const radius = Math.min(window.innerWidth, window.innerHeight) / 4;
+            const safeRadius = Math.min(window.innerWidth, window.innerHeight) / 3;
             const centerX = window.innerWidth / 2;
-            const centerY = window.innerHeight / 2;
+            const centerY = window.innerHeight / 2 + 70; // Move center down to avoid "Dad's Here" and "Play Music"
 
             function animate() {
                 images.forEach((image, index) => {
-                    angles[index] = moveImage(image, angles[index], radius, centerX, centerY);
+                    angles[index] = moveImage(image, angles[index], safeRadius, centerX, centerY);
                 });
                 requestAnimationFrame(animate);
             }
