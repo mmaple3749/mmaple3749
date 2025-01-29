@@ -20,22 +20,60 @@
             font-size: calc(20px + 6vw);
             font-family: 'Impact', sans-serif;
             color: black;
-            z-index: 1;
+            z-index: 3;
             text-align: center;
-            margin-bottom: 20px; /* Space for the button */
+            margin-bottom: 20px; 
         }
-        .moving-image {
+        .dancing-dad {
             position: absolute;
             width: calc(50px + 10vw);
-            height: calc(50px + 10vw);
-            animation: rotate 10s linear infinite;
+            height: calc(150px + 10vw);
+            animation: dance 2s ease-in-out infinite;
+            z-index: 1; /* Below text but above button */
         }
-        @keyframes rotate {
-            0% {
-                transform: rotate(0deg) translateX(-50vw) rotate(0deg);
+        .stick-figure {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        .head, .body, .arms, .legs {
+            position: absolute;
+            background-color: black;
+        }
+        .head {
+            width: 20%; height: 20%; 
+            border-radius: 50%; 
+            top: 0; left: 40%;
+        }
+        .body {
+            width: 2px; height: 40%; 
+            top: 20%; left: 50%;
+        }
+        .arms, .legs {
+            width: 2px; height: 30%;
+        }
+        .arms {
+            top: 30%; left: 40%;
+            transform-origin: right;
+        }
+        .legs {
+            top: 60%; left: 40%;
+            transform-origin: top;
+        }
+        .dancing-image {
+            position: absolute;
+            width: 100%;
+            height: 20%;
+            top: 20%;
+            left: 0;
+            z-index: 2;
+        }
+        @keyframes dance {
+            0%, 100% {
+                transform: rotate(0deg);
             }
-            100% {
-                transform: rotate(360deg) translateX(-50vw) rotate(-360deg);
+            50% {
+                transform: rotate(10deg);
             }
         }
         #playButton {
@@ -45,7 +83,7 @@
             color: white;
             border: none;
             cursor: pointer;
-            z-index: 2; /* Above images */
+            z-index: 4; /* Above everything else */
         }
         @media (max-width: 600px) {
             h1 {
@@ -55,9 +93,9 @@
                 font-size: 0.8em;
                 padding: 8px 16px;
             }
-            .moving-image {
+            .dancing-dad {
                 width: calc(30px + 15vw);
-                height: calc(30px + 15vw);
+                height: calc(90px + 15vw);
             }
         }
     </style>
@@ -69,18 +107,33 @@
         <source src="Suzanne Vega, DNA - Tom's Diner.mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
-    <img src="IMG_6908.jpg" class="moving-image" style="animation-delay: 0s;" id="image1">
-    <img src="image1.jpeg" class="moving-image" style="animation-delay: 1.67s;" id="image2">
-    <img src="image.png" class="moving-image" style="animation-delay: 3.34s;" id="image3">
-    <img src="image0.jpeg" class="moving-image" style="animation-delay: 5.01s;" id="image4">
-    <img src="swag.jpeg" class="moving-image" style="animation-delay: 6.68s;" id="image5">
-    <img src="yak.jpeg" class="moving-image" style="animation-delay: 8.35s;" id="image6">
+    
+    <!-- Dancing Dads -->
+    <div class="dancing-dad" style="left: 10%; animation-delay: 0s;">
+        <div class="stick-figure">
+            <div class="head"></div>
+            <div class="body"></div>
+            <div class="arms"></div>
+            <div class="legs"></div>
+            <img src="IMG_6908.jpg" class="dancing-image">
+        </div>
+    </div>
+    <div class="dancing-dad" style="left: 30%; animation-delay: 1s;">
+        <div class="stick-figure">
+            <div class="head"></div>
+            <div class="body"></div>
+            <div class="arms"></div>
+            <div class="legs"></div>
+            <img src="image1.jpeg" class="dancing-image">
+        </div>
+    </div>
+    <!-- Add more dancing dads with different images here -->
+
     <script>
         window.onload = function() {
             const audio = document.getElementById('backgroundAudio');
             const playButton = document.getElementById('playButton');
 
-            // Event listener for the play button
             playButton.addEventListener('click', function() {
                 if (audio.paused) {
                     audio.play();
