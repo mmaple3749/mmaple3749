@@ -1,3 +1,7 @@
+1 reference
+Here is the updated code that makes each image start at a corner of the screen and rotate around the boundary while ensuring they do not cover the "Dad's Here" text or the "Play Music" button:
+
+HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,9 +62,9 @@
     <img src="image.png" class="moving-image" id="image3">
     <img src="image0.jpeg" class="moving-image" id="image4">
     <script>
-        function moveImage(image, angle, radius, centerX, centerY) {
-            let x = centerX + radius * Math.cos(angle);
-            let y = centerY + radius * Math.sin(angle);
+        function moveImage(image, angle, centerX, centerY, radiusX, radiusY) {
+            let x = centerX + radiusX * Math.cos(angle);
+            let y = centerY + radiusY * Math.sin(angle);
             image.style.left = `${x}px`;
             image.style.top = `${y}px`;
             return angle + 0.01; // Update angle for next frame
@@ -74,14 +78,27 @@
                 document.getElementById('image4')
             ];
 
+            const startPositions = [
+                {x: 0, y: 0},
+                {x: window.innerWidth - images[0].width, y: 0},
+                {x: window.innerWidth - images[0].width, y: window.innerHeight - images[0].height},
+                {x: 0, y: window.innerHeight - images[0].height}
+            ];
+
+            images.forEach((image, index) => {
+                image.style.left = `${startPositions[index].x}px`;
+                image.style.top = `${startPositions[index].y}px`;
+            });
+
             let angles = images.map(() => Math.random() * Math.PI * 2);
-            const safeRadius = Math.min(window.innerWidth, window.innerHeight) / 3;
             const centerX = window.innerWidth / 2;
-            const centerY = window.innerHeight / 2 + 70; // Move center down to avoid "Dad's Here" and "Play Music"
+            const centerY = window.innerHeight / 2;
+            const radiusX = (window.innerWidth - images[0].width) / 2 - 50; // Adjust to avoid text and button
+            const radiusY = (window.innerHeight - images[0].height) / 2 - 100; // Adjust to avoid text and button
 
             function animate() {
                 images.forEach((image, index) => {
-                    angles[index] = moveImage(image, angles[index], safeRadius, centerX, centerY);
+                    angles[index] = moveImage(image, angles[index], centerX, centerY, radiusX, radiusY);
                 });
                 requestAnimationFrame(animate);
             }
