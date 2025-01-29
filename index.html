@@ -1,3 +1,7 @@
+1 reference
+Here is the updated code to optimize it for mobile viewing:
+
+HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,6 +52,13 @@
             z-index: 2; /* Above images */
         }
         @media (max-width: 600px) {
+            h1 {
+                font-size: calc(16px + 4vw);
+            }
+            #playButton {
+                font-size: 0.8em;
+                padding: 8px 16px;
+            }
             .moving-image {
                 width: calc(30px + 15vw);
                 height: calc(30px + 15vw);
