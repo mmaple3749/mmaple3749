@@ -1,7 +1,3 @@
-1 reference
-Here is the updated code to optimize it for mobile viewing:
-
-HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,14 +28,14 @@ HTML
             position: absolute;
             width: calc(50px + 10vw);
             height: calc(50px + 10vw);
-            animation: dance 1s infinite;
+            animation: rotate 10s linear infinite;
         }
-        @keyframes dance {
-            0%, 100% {
-                transform: translateY(0);
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg) translateX(-50vw) rotate(0deg);
             }
-            50% {
-                transform: translateY(-10px);
+            100% {
+                transform: rotate(360deg) translateX(-50vw) rotate(-360deg);
             }
         }
         #playButton {
@@ -73,12 +69,12 @@ HTML
         <source src="Suzanne Vega, DNA - Tom's Diner.mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
-    <img src="IMG_6908.jpg" class="moving-image" style="top: 10%; left: 10%;" id="image1">
-    <img src="image1.jpeg" class="moving-image" style="top: 10%; left: 40%;" id="image2">
-    <img src="image.png" class="moving-image" style="top: 10%; left: 70%;" id="image3">
-    <img src="image0.jpeg" class="moving-image" style="top: 70%; left: 10%;" id="image4">
-    <img src="yak.jpeg" class="moving-image" style="top: 70%; left: 40%;" id="image5">
-    <img src="yaz.jpeg" class="moving-image" style="top: 70%; left: 70%;" id="image6">
+    <img src="IMG_6908.jpg" class="moving-image" style="animation-delay: 0s;" id="image1">
+    <img src="image1.jpeg" class="moving-image" style="animation-delay: 1.67s;" id="image2">
+    <img src="image.png" class="moving-image" style="animation-delay: 3.34s;" id="image3">
+    <img src="image0.jpeg" class="moving-image" style="animation-delay: 5.01s;" id="image4">
+    <img src="yak.jpeg" class="moving-image" style="animation-delay: 6.68s;" id="image5">
+    <img src="yaz.jpeg" class="moving-image" style="animation-delay: 8.35s;" id="image6">
     <script>
         window.onload = function() {
             const audio = document.getElementById('backgroundAudio');
