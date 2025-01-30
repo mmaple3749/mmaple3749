@@ -24,56 +24,23 @@
             text-align: center;
             margin-bottom: 20px;
         }
-        .dancing-dad {
+        .rotating-images {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .rotating-images img {
             position: absolute;
             width: calc(50px + 10vw);
             height: auto;
-            z-index: 1; /* Below text and button */
+            animation: rotate 10s linear infinite;
         }
-        .stick-figure {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            animation: dance 2s ease-in-out infinite;
-        }
-        .head, .body, .arms, .legs {
-            position: absolute;
-            background-color: black;
-        }
-        .head {
-            width: 30%; height: 30%;
-            border-radius: 50%;
-            top: 0; left: 35%;
-        }
-        .body {
-            width: 4px; height: 50%;
-            top: 30%; left: 50%;
-            transform: translateX(-50%);
-        }
-        .arms, .legs {
-            width: 4px; height: 40%;
-        }
-        .arms {
-            top: 40%; left: 20%;
-            transform-origin: right;
-        }
-        .legs {
-            top: 80%; left: 20%;
-            transform-origin: top;
-        }
-        .dancing-image {
-            width: 100%;
-            position: absolute;
-            top: 20%; /* Adjust based on stick figure size */
-            left: 0;
-        }
-        @keyframes dance {
-            0%, 100% {
-                transform: rotate(0deg);
-            }
-            50% {
-                transform: rotate(10deg);
-            }
+        @keyframes rotate {
+            0% { transform: rotate(0deg) translateX(200px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(200px) rotate(-360deg); }
         }
         #playButton {
             font-size: 1em;
@@ -92,9 +59,6 @@
                 font-size: 0.8em;
                 padding: 8px 16px;
             }
-            .dancing-dad {
-                width: calc(30px + 15vw);
-            }
         }
     </style>
 </head>
@@ -106,27 +70,11 @@
         Your browser does not support the audio element.
     </audio>
 
-    <!-- Dancing Dads -->
-    <div class="dancing-dad" style="top: calc(50% - 100px); left: 10%;">
-        <div class="stick-figure">
-            <div class="head"></div>
-            <div class="body"></div>
-            <div class="arms"></div>
-            <div class="legs"></div>
-            <img src="IMG_6908.jpg" class="dancing-image" style="animation-delay: 0s;">
-        </div>
+    <div class="rotating-images">
+        <img src="IMG_6908.jpg" style="animation-delay: 0s;">
+        <img src="image1.jpeg" style="animation-delay: 1.67s;">
+        <!-- Add more images as needed -->
     </div>
-    <!-- Repeat for other images, adjusting position as needed -->
-    <div class="dancing-dad" style="top: calc(50% - 100px); left: 30%;">
-        <div class="stick-figure">
-            <div class="head"></div>
-            <div class="body"></div>
-            <div class="arms"></div>
-            <div class="legs"></div>
-            <img src="image1.jpeg" class="dancing-image" style="animation-delay: 1.67s;">
-        </div>
-    </div>
-    <!-- ... Continue for other images -->
 
     <script>
         window.onload = function() {
