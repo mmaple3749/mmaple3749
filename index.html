@@ -38,6 +38,13 @@
             height: auto;
             animation: rotate 10s linear infinite;
         }
+        .overlay-text {
+            position: absolute;
+            font-size: calc(10px + 2vw);
+            font-family: 'Impact', sans-serif;
+            color: red;
+            z-index: 4; /* Above the image */
+        }
         @keyframes rotate {
             0% { transform: rotate(0deg) translateX(200px) rotate(0deg); }
             100% { transform: rotate(360deg) translateX(200px) rotate(-360deg); }
@@ -73,6 +80,7 @@
     <div class="rotating-images">
         <img src="IMG_6908.jpg" style="animation-delay: 0s;">
         <img src="image.png" style="animation-delay: 1.25s;">
+        <div class="overlay-text" style="animation-delay: 1.25s;">HES DONE</div>
         <img src="image0.jpeg" style="animation-delay: 2.5s;">
         <img src="image1.jpeg" style="animation-delay: 3.75s;">
         <img src="yak.jpeg" style="animation-delay: 5s;">
