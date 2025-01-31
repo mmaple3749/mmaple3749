@@ -8,7 +8,10 @@
         body {
             height: 100vh;
             margin: 0;
-            background-color: #f0f0f0;
+            background-image: url('28du5siqr4t81.jpg'); /* Add your image path here */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
             overflow: hidden;
             display: flex;
             justify-content: center;
@@ -77,6 +80,16 @@
             padding: 0 10px;
             z-index: 5; /* Above the circle and line */
         }
+        .overlay-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: calc(10px + 2vw);
+            font-family: 'Impact', sans-serif;
+            color: red;
+            z-index: 4; /* Above the image */
+        }
         @keyframes rotate {
             0% { transform: rotate(0deg) translateX(200px) rotate(0deg); }
             100% { transform: rotate(360deg) translateX(200px) rotate(-360deg); }
@@ -105,7 +118,7 @@
     <h1>DAD'S HERE</h1>
     <button id="playButton">Play Music</button>
     <audio id="backgroundAudio">
-        <source src="01. Apex Legends - Main Theme.mp3" type="audio/mp3">
+        <source src="Mohg, Lord of Blood (Phase 1).mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
 
