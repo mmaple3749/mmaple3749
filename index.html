@@ -32,14 +32,21 @@
             justify-content: center;
             align-items: center;
         }
-        .rotating-images img {
+        .rotating-images .image-container {
             position: absolute;
             width: calc(50px + 10vw);
             height: auto;
             animation: rotate 10s linear infinite;
         }
-        .overlay-text {
+        .image-container img {
+            width: 100%;
+            height: auto;
+        }
+        .image-container .overlay-text {
             position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             font-size: calc(10px + 2vw);
             font-family: 'Impact', sans-serif;
             color: red;
@@ -78,13 +85,25 @@
     </audio>
 
     <div class="rotating-images">
-        <img src="IMG_6908.jpg" style="animation-delay: 0s;">
-        <img src="image.png" style="animation-delay: 1.25s;">
-        <div class="overlay-text" style="animation-delay: 1.25s;">HES DONE</div>
-        <img src="image0.jpeg" style="animation-delay: 2.5s;">
-        <img src="image1.jpeg" style="animation-delay: 3.75s;">
-        <img src="yak.jpeg" style="animation-delay: 5s;">
-        <img src="swag.jpeg" style="animation-delay: 6.25s;">
+        <div class="image-container" style="animation-delay: 0s;">
+            <img src="IMG_6908.jpg">
+        </div>
+        <div class="image-container" style="animation-delay: 1.25s;">
+            <img src="image.png">
+            <div class="overlay-text">HES DONE</div>
+        </div>
+        <div class="image-container" style="animation-delay: 2.5s;">
+            <img src="image0.jpeg">
+        </div>
+        <div class="image-container" style="animation-delay: 3.75s;">
+            <img src="image1.jpeg">
+        </div>
+        <div class="image-container" style="animation-delay: 5s;">
+            <img src="yak.jpeg">
+        </div>
+        <div class="image-container" style="animation-delay: 6.25s;">
+            <img src="swag.jpeg">
+        </div>
     </div>
 
     <script>
