@@ -1,6 +1,6 @@
-The issue might be due to an incorrect API URL or handling of the response. Let's review and correct the implementation to ensure the player count is fetched correctly.
+It seems that the Steam Web API might not be accessible or there might be a network issue. Let's add error handling and a fallback message for the player count.
 
-Here is the updated `index.html` with a corrected API URL and improved error handling:
+Here's the updated `index.html`:
 
 ```html
 <!DOCTYPE html>
@@ -198,7 +198,10 @@ Here is the updated `index.html` with a corrected API URL and improved error han
             // Fetch player count function
             async function fetchPlayerCount() {
                 try {
-                    const response = await fetch('<iframe src="https://steamdb.info/embed/?appid=1240440" height="389" style="border:0;overflow:hidden;width:100%" loading="lazy"></iframe>');
+                    const response = await fetch('https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid=3434054');
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
                     const data = await response.json();
                     const playerCount = data.response.player_count || 0;
                     document.getElementById('playerCount').textContent = `Active Halo Players: ${playerCount}`;
@@ -218,4 +221,4 @@ Here is the updated `index.html` with a corrected API URL and improved error han
 </html>
 ```
 
-Please try this updated code and let me know if it resolves the issue.
+This update includes a check for the network response status and better error handling to provide more accurate feedback if the API fails to load.
