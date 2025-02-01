@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-http://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid=3434054
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -113,6 +112,17 @@ http://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid=
                 padding: 8px 16px;
             }
         }
+        .player-count {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+            z-index: 5;
+        }
     </style>
 </head>
 <body>
@@ -146,45 +156,6 @@ http://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid=
             <img src="image0 (2).jpeg">
         </div>
     </div>
-
-    <script>
-        window.onload = function() {
-            const audio = document.getElementById('backgroundAudio');
-            const playButton = document.getElementById('playButton');
-
-            playButton.addEventListener('click', function() {
-                if (audio.paused) {
-                    audio.play();
-                    this.textContent = 'Pause Music';
-                } else {
-                    audio.pause();
-                    this.textContent = 'Play Music';
-                }
-            });
-        };
-    </script>
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- existing head content -->
-    <style>
-        /* existing styles */
-        
-        .player-count {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            font-family: Arial, sans-serif;
-            z-index: 5;
-        }
-    </style>
-</head>
-<body>
-    <!-- existing body content -->
 
     <div class="player-count" id="playerCount">Loading...</div>
 
@@ -222,7 +193,5 @@ http://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid=
             setInterval(fetchPlayerCount, 60000);
         };
     </script>
-</body>
-</html>
 </body>
 </html>
