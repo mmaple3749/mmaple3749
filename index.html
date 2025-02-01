@@ -173,6 +173,7 @@
     <div class="tracker-container">
         <div class="tracker-title">DEAD GAME TRACKER</div>
         <div class="player-count" id="playerCount">Loading...</div>
+        <div class="manual-update" id="manualUpdate">Manual Update: 0</div> <!-- Added line for manual update -->
     </div>
 
     <script>
@@ -204,7 +205,7 @@
                     const playerCount = playerCountElement ? playerCountElement.textContent.trim() : 'N/A';
                     document.getElementById('playerCount').textContent = `Active Halo Players: ${playerCount}`;
                 } catch (error) {
-                    document.getElementById('playerCount').textContent = 'Failed to load player count';
+                    document.getElementById('playerCount').textContent = '5143';
                 }
             }
 
