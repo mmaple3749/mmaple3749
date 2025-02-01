@@ -198,7 +198,7 @@ Here is the updated `index.html` with a corrected API URL and improved error han
             // Fetch player count function
             async function fetchPlayerCount() {
                 try {
-                    const response = await fetch('https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid=3434054');
+                    const response = await fetch('<iframe src="https://steamdb.info/embed/?appid=1240440" height="389" style="border:0;overflow:hidden;width:100%" loading="lazy"></iframe>');
                     const data = await response.json();
                     const playerCount = data.response.player_count || 0;
                     document.getElementById('playerCount').textContent = `Active Halo Players: ${playerCount}`;
