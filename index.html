@@ -26,8 +26,8 @@
             text-align: center;
         }
         .background-image {
-            width: 80%;
-            height: 80%;
+            width: 70%; /* Reduced from 80% to make space for figures */
+            height: 70%; /* Reduced from 80% to make space for figures */
             background-image: url('image000001.jpg'); /* Replace with your image URL */
             background-size: contain;
             background-position: center;
@@ -42,16 +42,16 @@
             transform: translateY(-50%);
         }
         .human-figure.left-1 {
-            left: -100px; /* Closer to the center image on the left */
+            left: 0px; /* Right against the left edge of the background image */
         }
         .human-figure.left-2 {
-            left: -200px; /* Farther from the center image on the left */
+            left: -70px; /* Just outside the closer left figure */
         }
         .human-figure.right-1 {
-            right: -100px; /* Closer to the center image on the right */
+            right: 0px; /* Right against the right edge of the background image */
         }
         .human-figure.right-2 {
-            right: -200px; /* Farther from the center image on the right */
+            right: -70px; /* Just outside the closer right figure */
         }
         .head {
             width: 40px;
@@ -206,21 +206,25 @@
             left: 8px;
         }
         @media (max-width: 768px) {
+            .background-image {
+                width: 60%; /* Further reduced for smaller screens */
+                height: 60%;
+            }
             .human-figure {
                 width: 60px;
                 height: 160px;
             }
             .human-figure.left-1 {
-                left: -80px;
+                left: 0px; /* Right against the left edge */
             }
             .human-figure.left-2 {
-                left: -150px;
+                left: -60px; /* Just outside the closer left figure */
             }
             .human-figure.right-1 {
-                right: -80px;
+                right: 0px; /* Right against the right edge */
             }
             .human-figure.right-2 {
-                right: -150px;
+                right: -60px; /* Just outside the closer right figure */
             }
             .head {
                 width: 30px;
