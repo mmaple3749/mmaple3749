@@ -1,378 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nick's Dead</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: #000;
-            position: relative;
-        }
-        .header-text {
-            position: absolute;
-            top: 20px;
-            color: #fff;
-            font-size: 48px;
-            font-family: Arial, sans-serif;
-            font-weight: bold;
-            text-align: center;
-        }
-        .background-image {
-            width: 70%; /* Reduced from 80% to make space for figures */
-            height: 70%; /* Reduced from 80% to make space for figures */
-            background-image: url('image000001.jpg'); /* Replace with your image URL */
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
-            position: relative; /* To position human figures relative to this container */
-        }
-        .human-figure {
-            position: absolute;
-            width: 80px;
-            height: 200px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        .human-figure.left-1 {
-            left: 0px; /* Right against the left edge of the background image */
-        }
-        .human-figure.left-2 {
-            left: -70px; /* Just outside the closer left figure */
-        }
-        .human-figure.right-1 {
-            right: 0px; /* Right against the right edge of the background image */
-        }
-        .human-figure.right-2 {
-            right: -70px; /* Just outside the closer right figure */
-        }
-        .head {
-            width: 40px;
-            height: 40px;
-            background-color: #fff; /* Fallback background for head */
-            border-radius: 50%;
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            overflow: hidden;
-        }
-        .head img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Ensure image fits within the circular head */
-        }
-        .torso {
-            width: 40px;
-            height: 80px;
-            background-color: #000; /* Black for funeral attire */
-            border: 1px solid #fff; /* White outline for visibility */
-            position: absolute;
-            top: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            clip-path: polygon(20% 0%, 80% 0%, 100% 70%, 80% 100%, 20% 100%, 0% 70%); /* Tapered torso */
-        }
-        .torso::before {
-            content: '';
-            width: 50px;
-            height: 10px;
-            background-color: #000; /* Black for shoulders */
-            border: 1px solid #fff;
-            position: absolute;
-            top: -5px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 10px; /* Rounded shoulders */
-        }
-        .arm {
-            width: 15px;
-            height: 60px;
-            background-color: #000; /* Black for funeral attire */
-            border: 1px solid #fff; /* White outline for visibility */
-            position: absolute;
-            top: 50px;
-            border-radius: 10px 10px 5px 5px; /* Curved top, less curved bottom */
-            clip-path: polygon(20% 0%, 80% 0%, 100% 80%, 80% 100%, 20% 100%, 0% 80%); /* Tapered arm */
-        }
-        .human-figure.left-1 .arm.left-arm,
-        .human-figure.left-2 .arm.left-arm {
-            left: 15px;
-            transform: rotate(30deg); /* Inner arm angled slightly */
-        }
-        .human-figure.left-1 .arm.right-arm,
-        .human-figure.left-2 .arm.right-arm {
-            left: 50px;
-            transform: rotate(-30deg); /* Outer arm holding flower */
-        }
-        .human-figure.right-1 .arm.left-arm,
-        .human-figure.right-2 .arm.left-arm {
-            left: 15px;
-            transform: rotate(30deg); /* Outer arm holding flower */
-        }
-        .human-figure.right-1 .arm.right-arm,
-        .human-figure.right-2 .arm.right-arm {
-            left: 50px;
-            transform: rotate(-30deg); /* Inner arm angled slightly */
-        }
-        .leg {
-            width: 12px;
-            height: 60px;
-            background-color: #000; /* Black for funeral attire */
-            border: 1px solid #fff; /* White outline for visibility */
-            position: absolute;
-            top: 120px;
-            border-radius: 5px 5px 10px 10px; /* Curved bottom, less curved top */
-            clip-path: polygon(20% 0%, 80% 0%, 100% 80%, 80% 100%, 20% 100%, 0% 80%); /* Tapered leg */
-        }
-        .human-figure.left-1 .leg.left-leg,
-        .human-figure.left-2 .leg.left-leg {
-            left: 20px;
-            transform: rotate(10deg);
-        }
-        .human-figure.left-1 .leg.right-leg,
-        .human-figure.left-2 .leg.right-leg {
-            left: 48px;
-            transform: rotate(-10deg);
-        }
-        .human-figure.right-1 .leg.left-leg,
-        .human-figure.right-2 .leg.left-leg {
-            left: 20px;
-            transform: rotate(10deg);
-        }
-        .human-figure.right-1 .leg.right-leg,
-        .human-figure.right-2 .leg.right-leg {
-            left: 48px;
-            transform: rotate(-10deg);
-        }
-        .flower {
-            width: 20px;
-            height: 40px;
-            position: absolute;
-            top: 90px; /* Aligned with the end of the outer arm */
-        }
-        .human-figure.left-1 .flower,
-        .human-figure.left-2 .flower {
-            left: 60px; /* Flower at the end of the right arm for left figures */
-        }
-        .human-figure.right-1 .flower,
-        .human-figure.right-2 .flower {
-            right: 60px; /* Flower at the end of the left arm for right figures */
-        }
-        .flower::before {
-            content: '';
-            width: 30px;
-            height: 10px;
-            background-color: #fff; /* White petals for lily */
-            position: absolute;
-            top: 0;
-            left: -5px;
-            border-radius: 50% 50% 0 0; /* Curved top for petal shape */
-            transform: rotate(10deg);
-        }
-        .flower::after {
-            content: '';
-            width: 30px;
-            height: 10px;
-            background-color: #fff; /* White petals for lily */
-            position: absolute;
-            top: 0;
-            left: -5px;
-            border-radius: 50% 50% 0 0; /* Curved top for petal shape */
-            transform: rotate(-10deg);
-        }
-        .flower .center {
-            width: 5px;
-            height: 5px;
-            background-color: #ff0; /* Yellow center for lily */
-            border-radius: 50%;
-            position: absolute;
-            top: 5px;
-            left: 7.5px;
-        }
-        .flower .stem {
-            width: 4px;
-            height: 30px;
-            background-color: #0f0; /* Green stem */
-            position: absolute;
-            top: 10px;
-            left: 8px;
-        }
-        @media (max-width: 768px) {
-            .background-image {
-                width: 60%; /* Further reduced for smaller screens */
-                height: 60%;
-            }
-            .human-figure {
-                width: 60px;
-                height: 160px;
-            }
-            .human-figure.left-1 {
-                left: 0px; /* Right against the left edge */
-            }
-            .human-figure.left-2 {
-                left: -60px; /* Just outside the closer left figure */
-            }
-            .human-figure.right-1 {
-                right: 0px; /* Right against the right edge */
-            }
-            .human-figure.right-2 {
-                right: -60px; /* Just outside the closer right figure */
-            }
-            .head {
-                width: 30px;
-                height: 30px;
-            }
-            .torso {
-                width: 30px;
-                height: 60px;
-                top: 30px;
-                clip-path: polygon(20% 0%, 80% 0%, 100% 70%, 80% 100%, 20% 100%, 0% 70%);
-            }
-            .torso::before {
-                width: 40px;
-                height: 8px;
-                top: -4px;
-            }
-            .arm {
-                width: 12px;
-                height: 50px;
-                top: 40px;
-                border-radius: 8px 8px 4px 4px;
-                clip-path: polygon(20% 0%, 80% 0%, 100% 80%, 80% 100%, 20% 100%, 0% 80%);
-            }
-            .leg {
-                width: 10px;
-                height: 50px;
-                top: 90px;
-                border-radius: 4px 4px 8px 8px;
-                clip-path: polygon(20% 0%, 80% 0%, 100% 80%, 80% 100%, 20% 100%, 0% 80%);
-            }
-            .human-figure.left-1 .leg.right-leg,
-            .human-figure.left-2 .leg.right-leg,
-            .human-figure.right-1 .leg.right-leg,
-            .human-figure.right-2 .leg.right-leg {
-                left: 40px;
-            }
-            .flower {
-                width: 15px;
-                height: 30px;
-                top: 70px;
-            }
-            .human-figure.left-1 .flower,
-            .human-figure.left-2 .flower {
-                left: 45px;
-            }
-            .human-figure.right-1 .flower,
-            .human-figure.right-2 .flower {
-                right: 45px;
-            }
-            .flower::before,
-            .flower::after {
-                width: 20px;
-                height: 8px;
-                top: 0;
-                left: -3px;
-            }
-            .flower .center {
-                width: 4px;
-                height: 4px;
-                top: 4px;
-                left: 5.5px;
-            }
-            .flower .stem {
-                width: 3px;
-                height: 20px;
-                top: 8px;
-                left: 6px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DAD TIMES</title>
+  <style>
+    body { margin:0; font-family:"Times New Roman",Georgia,serif; background:#e5e7eb; overflow:hidden; color:#111 }
+    .sheet {
+      width:min(900px,92vw); margin:18px auto; background:#fff; 
+      border:4px solid #111; box-shadow:0 20px 50px #0003; position:relative; z-index:1;
+    }
+    header {
+      text-align:center; padding:14px 10px 6px; border-bottom:2px solid #111;
+      background:repeating-linear-gradient(0deg,#fff,#fff 22px,#f8fafc 22px,#f8fafc 44px);
+    }
+    header h1 { margin:0; font-size:clamp(42px,7vw,64px); letter-spacing:.08em; text-transform:uppercase; }
+    header h2 { margin:8px 0 6px; font-size:clamp(28px,4vw,42px); font-weight:700; }
+    header p { margin:0; color:#444; font-size:clamp(16px,2.4vw,18px); }
+    main {
+      display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:18px; min-height:60vh;
+    }
+    .newsImage { max-width:100%; max-height:64vh; object-fit:contain; border:1px solid #ddd; }
+    .atv {
+      position:fixed; left:0; top:0; width:var(--size,70px); height:auto;
+      pointer-events:none; z-index:5; filter:drop-shadow(0 6px 6px rgba(0,0,0,.25));
+      transform:translate(-50%,-50%) rotate(0deg);
+    }
+    .atv svg { width:100%; height:auto; display:block; }
+    .wheel { transform-box:fill-box; transform-origin:50% 50%; animation:spin var(--spin,.8s) linear infinite; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+  </style>
 </head>
 <body>
-    <div class="header-text">R.I.P</div>
-    <div class="background-image">
-        <div class="human-figure left-1">
-            <div class="head">
-                <img src="image0 (2).jpeg" alt="Left figure 1 head"> <!-- Replace with your image URL -->
-            </div>
-            <div class="torso"></div>
-            <div class="arm left-arm"></div>
-            <div class="arm right-arm"></div>
-            <div class="leg left-leg"></div>
-            <div class="leg right-leg"></div>
-            <div class="flower">
-                <div class="center"></div>
-                <div class="stem"></div>
-            </div>
-        </div>
-        <div class="human-figure left-2">
-            <div class="head">
-                <img src="image0.jpeg" alt="Left figure 2 head"> <!-- Replace with your image URL -->
-            </div>
-            <div class="torso"></div>
-            <div class="arm left-arm"></div>
-            <div class="arm right-arm"></div>
-            <div class="leg left-leg"></div>
-            <div class="leg right-leg"></div>
-            <div class="flower">
-                <div class="center"></div>
-                <div class="stem"></div>
-            </div>
-        </div>
-        <div class="human-figure right-1">
-            <div class="head">
-                <img src="image.png" alt="Right figure 1 head"> <!-- Replace with your image URL -->
-            </div>
-            <div class="torso"></div>
-            <div class="arm left-arm"></div>
-            <div class="arm right-arm"></div>
-            <div class="leg left-leg"></div>
-            <div class="leg right-leg"></div>
-            <div class="flower">
-                <div class="center"></div>
-                <div class="stem"></div>
-            </div>
-        </div>
-        <div class="human-figure right-2">
-            <div class="head">
-                <img src="image1.jpeg" alt="Right figure 2 head"> <!-- Replace with your image URL -->
-            </div>
-            <div class="torso"></div>
-            <div class="arm left-arm"></div>
-            <div class="arm right-arm"></div>
-            <div class="leg left-leg"></div>
-            <div class="leg right-leg"></div>
-            <div class="flower">
-                <div class="center"></div>
-                <div class="stem"></div>
-            </div>
-        </div>
-    </div>
-    <audio id="background-audio" autoplay loop>
-        <source src="Billie_Eilish_-_The_30th_(mp3.pm).mp3" type="audio/mpeg"> <!-- Replace with your audio file URL -->
-        Your browser does not support the audio element.
-    </audio>
-    <script>
-        // Attempt to play audio on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            const audio = document.getElementById('background-audio');
-            audio.muted = false; // Ensure audio is not muted
-            audio.play().catch(function(error) {
-                console.log("Autoplay failed: ", error);
-                // Fallback: Try playing after a user interaction
-                document.body.addEventListener('click', function() {
-                    audio.play();
-                }, { once: true });
-            });
-        });
-    </script>
+  <div class="sheet">
+    <header>
+      <h1>DAD TIMES</h1>
+      <h2 contenteditable="true">HOG BASHED!</h2>
+      <p contenteditable="true">He wanted it to be one way... but its the other way.</p>
+    </header>
+    <main>
+      <!-- Paste your image paths here -->
+      <img id="newsImage1" class="newsImage" src="nick4w1.png" />
+      <img id="newsImage2" class="newsImage" src="image000001.jpg" />
+    </main>
+  </div>
+
+  <!-- Background music -->
+  <audio id="bgMusic" loop autoplay>
+    <source src="Billie_Eilish_-_The_30th_(mp3.pm).mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // Quad bike SVG
+    function quadSVG(color='#b91c1c') {
+      return `<svg viewBox="0 0 160 100">
+        <g class="wheel"><circle cx="30" cy="80" r="14" fill="#222"/><circle cx="30" cy="80" r="6" fill="#666"/></g>
+        <g class="wheel"><circle cx="130" cy="80" r="14" fill="#222"/><circle cx="130" cy="80" r="6" fill="#666"/></g>
+        <g class="wheel"><circle cx="30" cy="20" r="14" fill="#222"/><circle cx="30" cy="20" r="6" fill="#666"/></g>
+        <g class="wheel"><circle cx="130" cy="20" r="14" fill="#222"/><circle cx="130" cy="20" r="6" fill="#666"/></g>
+        <rect x="30" y="15" width="100" height="70" rx="12" fill="${color}" stroke="#111" stroke-width="3"/>
+        <rect x="60" y="35" width="40" height="20" rx="4" fill="#111"/>
+        <path d="M60 20 L40 0 M100 20 L120 0" stroke="#111" stroke-width="4" stroke-linecap="round"/>
+      </svg>`;
+    }
+
+    function spawnQuad() {
+      const colors=['#b91c1c','#0ea5e9','#22c55e','#f59e0b','#8b5cf6'];
+      const wrap=document.createElement('div');
+      wrap.className='atv';
+      wrap.innerHTML=quadSVG(colors[Math.floor(Math.random()*colors.length)]);
+      document.body.appendChild(wrap);
+      const size=50+Math.random()*30;
+      wrap.style.setProperty('--size',size+'px');
+      let x=Math.random()*window.innerWidth, y=Math.random()*window.innerHeight;
+      const speed=50+Math.random()*100;
+      let angle=Math.random()*Math.PI*2;
+      let vx=Math.cos(angle)*speed, vy=Math.sin(angle)*speed;
+      const period=Math.max(0.18, (2*Math.PI*(size*0.18))/Math.max(40,speed));
+      wrap.querySelectorAll('.wheel').forEach(w=>w.style.setProperty('--spin',period.toFixed(2)+'s'));
+      let last=performance.now();
+      function tick(now){
+        const dt=(now-last)/1000; last=now;
+        x+=vx*dt; y+=vy*dt;
+        const margin=size*0.6;
+        if(x<margin){x=margin;vx=Math.abs(vx);} if(x>window.innerWidth-margin){x=window.innerWidth-margin;vx=-Math.abs(vx);}
+        if(y<margin){y=margin;vy=Math.abs(vy);} if(y>window.innerHeight-margin){y=window.innerHeight-margin;vy=-Math.abs(vy);}
+        angle=Math.atan2(vy,vx);
+        vx+=(Math.random()-.5)*6; vy+=(Math.random()-.5)*6;
+        wrap.style.transform=`translate(${x}px,${y}px) rotate(${angle*180/Math.PI}deg)`;
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(t=>{last=t;tick(t);});
+    }
+    for(let i=0;i<12;i++) spawnQuad();
+  </script>
 </body>
 </html>
