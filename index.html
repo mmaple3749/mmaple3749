@@ -35,18 +35,18 @@
   <div class="sheet">
     <header>
       <h1>DAD TIMES</h1>
-      <h2 contenteditable="true">HOG BASHED!</h2>
-      <p contenteditable="true">He wanted it to be one way... but its the other way.</p>
+      <h2>HOG BASHED!</h2>
+      <p>He wanted it to be one way... but it's the other way.</p>
     </header>
     <main>
-      <!-- Paste your image paths here -->
+      <!-- Your images -->
       <img id="newsImage1" class="newsImage" src="nick4w1.png" />
       <img id="newsImage2" class="newsImage" src="image000001.jpg" />
     </main>
   </div>
 
   <!-- Background music -->
-  <audio id="bgMusic" loop autoplay>
+  <audio id="bgMusic" loop>
     <source src="Billie_Eilish_-_The_30th_(mp3.pm).mp3" type="audio/mpeg">
   </audio>
 
@@ -54,13 +54,14 @@
     // Quad bike SVG
     function quadSVG(color='#b91c1c') {
       return `<svg viewBox="0 0 160 100">
-        <g class="wheel"><circle cx="30" cy="80" r="14" fill="#222"/><circle cx="30" cy="80" r="6" fill="#666"/></g>
-        <g class="wheel"><circle cx="130" cy="80" r="14" fill="#222"/><circle cx="130" cy="80" r="6" fill="#666"/></g>
-        <g class="wheel"><circle cx="30" cy="20" r="14" fill="#222"/><circle cx="30" cy="20" r="6" fill="#666"/></g>
-        <g class="wheel"><circle cx="130" cy="20" r="14" fill="#222"/><circle cx="130" cy="20" r="6" fill="#666"/></g>
-        <rect x="30" y="15" width="100" height="70" rx="12" fill="${color}" stroke="#111" stroke-width="3"/>
-        <rect x="60" y="35" width="40" height="20" rx="4" fill="#111"/>
-        <path d="M60 20 L40 0 M100 20 L120 0" stroke="#111" stroke-width="4" stroke-linecap="round"/>
+        <!-- Wheels -->
+        <circle class="wheel" cx="35" cy="80" r="14" fill="#222"/>
+        <circle class="wheel" cx="125" cy="80" r="14" fill="#222"/>
+        <!-- Body -->
+        <path d="M40 50 Q80 20 120 50 L110 70 H50 Z" fill="${color}" stroke="#111" stroke-width="3"/>
+        <!-- Handlebars -->
+        <line x1="80" y1="20" x2="70" y2="5" stroke="#111" stroke-width="4" stroke-linecap="round"/>
+        <line x1="80" y1="20" x2="90" y2="5" stroke="#111" stroke-width="4" stroke-linecap="round"/>
       </svg>`;
     }
 
@@ -83,8 +84,10 @@
         const dt=(now-last)/1000; last=now;
         x+=vx*dt; y+=vy*dt;
         const margin=size*0.6;
-        if(x<margin){x=margin;vx=Math.abs(vx);} if(x>window.innerWidth-margin){x=window.innerWidth-margin;vx=-Math.abs(vx);}
-        if(y<margin){y=margin;vy=Math.abs(vy);} if(y>window.innerHeight-margin){y=window.innerHeight-margin;vy=-Math.abs(vy);}
+        if(x<margin){x=margin;vx=Math.abs(vx);} 
+        if(x>window.innerWidth-margin){x=window.innerWidth-margin;vx=-Math.abs(vx);}
+        if(y<margin){y=margin;vy=Math.abs(vy);} 
+        if(y>window.innerHeight-margin){y=window.innerHeight-margin;vy=-Math.abs(vy);}
         angle=Math.atan2(vy,vx);
         vx+=(Math.random()-.5)*6; vy+=(Math.random()-.5)*6;
         wrap.style.transform=`translate(${x}px,${y}px) rotate(${angle*180/Math.PI}deg)`;
@@ -92,7 +95,17 @@
       }
       requestAnimationFrame(t=>{last=t;tick(t);});
     }
+
+    // Spawn multiple quads
     for(let i=0;i<12;i++) spawnQuad();
+
+    // Play music after user interaction
+    const bgMusic = document.getElementById('bgMusic');
+    function playMusic() {
+      bgMusic.play().catch(e => console.log('Music blocked by browser'));
+      window.removeEventListener('click', playMusic);
+    }
+    window.addEventListener('click', playMusic);
   </script>
 </body>
 </html>
