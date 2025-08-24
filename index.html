@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dad Never Left</title>
+    <title>Dads Here</title>
     <style>
         body {
             margin: 0;
@@ -38,9 +38,23 @@
 <body>
     <div class="header-text">DADS HERE</div>
     <div class="background-image"></div>
-    <audio autoplay loop>
-        <source src="Billie Eilish - The 30th (Lyrics).mp4" type="audio/mpeg"> <!-- Replace with your audio file URL -->
+    <audio id="background-audio" autoplay loop>
+        <source src="Billie_Eilish_-_The_30th_(mp3.pm).mp3" type="audio/mpeg"> <!-- Replace with your audio file URL -->
         Your browser does not support the audio element.
     </audio>
+    <script>
+        // Attempt to play audio on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const audio = document.getElementById('background-audio');
+            audio.muted = false; // Ensure audio is not muted
+            audio.play().catch(function(error) {
+                console.log("Autoplay failed: ", error);
+                // Fallback: Try playing after a user interaction
+                document.body.addEventListener('click', function() {
+                    audio.play();
+                }, { once: true });
+            });
+        });
+    </script>
 </body>
 </html>
